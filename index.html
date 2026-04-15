@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Production Input</title>
+</head>
+<body>
+
+<input id="job" placeholder="Job Order"><br>
+<input id="lot" placeholder="Lot No"><br>
+<input id="weight" placeholder="Weight"><br>
+<input id="size" placeholder="Size"><br>
+
+<button onclick="sendData()">Send</button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAZLQa7upNrSHeFrtZR30PdJMo6L0zG-0Y",
+  authDomain: "bead-wire-dc3b5.firebaseapp.com",
+  projectId: "bead-wire-dc3b5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.sendData = async function() {
+  await addDoc(collection(db, "production"), {
+    job: document.getElementById("job").value,
+    lot: document.getElementById("lot").value,
+    weight: document.getElementById("weight").value,
+    size: document.getElementById("size").value,
+    time: new Date()
+  });
+  alert("تم التسجيل ✅");
+}
+</script>
+
+</body>
+</html>
